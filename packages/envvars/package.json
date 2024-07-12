@@ -1,11 +1,10 @@
 {
-  "name": "@leovigna/starter-typescript",
+  "name": "@easywallet/envvars",
   "version": "0.0.0",
   "keywords": [
-    "typescript",
-    "starter"
+    "dotenv"
   ],
-  "private": true,
+  "private": false,
   "type": "module",
   "homepage": "https://leovigna.github.io/easywallet",
   "repository": {
@@ -28,47 +27,51 @@
   ],
   "main": "./lib/cjs/index.cjs",
   "module": "./lib/esm/index.mjs",
-  "types": "./lib/types/index.d.ts",
+  "types": "./lib/types/index.d.mts",
   "exports": {
     ".": {
       "types": "./lib/types/index.d.ts",
-      "require": "./lib/cjs/index.js",
-      "import": "./lib/esm/index.js"
+      "browser": "./lib/esm/index.browser.js",
+      "import": "./lib/esm/index.js",
+      "require": "./lib/cjs/index.js"
+    },
+    "./browser": {
+      "types": "./lib/types/index.browser.d.ts",
+      "browser": "./lib/esm/index.browser.js"
     }
   },
   "scripts": {
-    "build": "npm-run-all -p tsc esbuild",
+    "build": "pnpm run codegen && npm-run-all -p tsc esbuild",
     "build:watch": "npm-run-all -p tsc:watch esbuild:watch",
     "clean": "rimraf lib dist",
+    "codegen": "tsx src/genEnvVars.ts",
     "depcheck": "depcheck",
     "esbuild": "node esbuild.config.mjs",
     "esbuild:watch": "ESBUILD_WATCH=true node esbuild.config.mjs",
-    "lint": "eslint 'src/**/*.ts'",
-    "lint:fix": "eslint --fix 'src/**/*.ts'",
-    "lint:staged": "lint-staged",
-    "madge": "madge src/index.ts -c",
-    "test": "pnpm run test:ci",
-    "test:ci": "vitest --run",
-    "test:watch": "vitest",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
     "tsc": "tsc",
-    "tsc:trace": "tsc --generateTrace lib/trace && analyze-trace lib/trace",
     "tsc:watch": "tsc -w"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "find-config": "^1.0.0"
   },
   "devDependencies": {
     "@owlprotocol/esbuild-config": "*",
     "@owlprotocol/eslint-config": "*",
     "@owlprotocol/prettier-config": "*",
     "@owlprotocol/tsconfig": "*",
+    "@types/eslint": "^8.44.2",
+    "@types/find-config": "^1.0.2",
     "@types/node": "^20.11.10",
-    "@typescript/analyze-trace": "^0.10.1",
-    "depcheck": "^1.4.7",
-    "lint-staged": "^11.2.6",
-    "madge": "^5.0.2",
+    "eslint": "^8.55.0",
     "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.2",
+    "tsx": "^4.11.0",
     "typescript": "5.4.5",
     "vite": "^5.1.6",
-    "vitest": "^1.4.0"
+    "depcheck": "^1.4.7"
   },
   "bugs": {
     "url": "https://github.com/leovigna/easywallet/issues",
@@ -77,8 +80,5 @@
   "funding": "https://github.com/leovigna/easywallet",
   "engines": {
     "node": "^18.0.0"
-  },
-  "dependencies": {
-    "grammy": "^1.27.0"
   }
 }

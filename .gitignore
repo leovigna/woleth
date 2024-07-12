@@ -22,9 +22,6 @@ dist-ssr
 lib
 .serverless
 
-# local deployments
-packages/contracts/packages/owlprotocol-contracts/deployments/ganache/*
-
 # misc
 .DS_Store
 *.pem
@@ -64,8 +61,5 @@ workspace-versions.json
 !.env.vault
 *.sh
 !scripts/*.sh
-
-!apps/owl-build/src/lib
-!packages/ui-components/src/lib
 
 NOTES.md
