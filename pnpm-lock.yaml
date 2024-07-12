@@ -35,7 +35,7 @@ importers:
         specifier: ^1.10.12
         version: 1.13.4
 
-  packages/starter-typescript:
+  packages/easywallet:
     devDependencies:
       '@owlprotocol/esbuild-config':
         specifier: '*'
