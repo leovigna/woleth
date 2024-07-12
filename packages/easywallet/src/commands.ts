@@ -1,6 +1,6 @@
 /***** Commands *****/
 
-import { intro, start } from "./conversations/index.js";
+import { intro, start, wallet, walletCollectibles, walletTokens } from "./conversations/index.js";
 
 /** Describes the parameter of a command */
 export interface CommandParam {
@@ -43,16 +43,19 @@ export const WALLET = {
     command: "wallet",
     description: "View Wallet",
     menu: true,
+    conversation: wallet,
 } as const satisfies Command;
 export const WALLET_TOKENS = {
     command: "wallet_tokens",
     description: "View Tokens",
     menu: false,
+    conversation: walletTokens,
 } as const satisfies Command;
 export const WALLET_COLLECTIBLES = {
     command: "wallet_collectibles",
     description: "View Collectibles",
     menu: false,
+    conversation: walletCollectibles,
 } as const satisfies Command;
 
 export const ACTIVE_COMMANDS: Array<Command> = [START, INTRO, WALLET, WALLET_TOKENS, WALLET_COLLECTIBLES];
