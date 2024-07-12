@@ -1,0 +1,54 @@
+{
+  "name": "@leovigna/workspace",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Leo Vigna Monorepo",
+  "keywords": [
+    "pnpm",
+    "workspace"
+  ],
+  "license": "MIT",
+  "author": "Leo Vigna",
+  "type": "module",
+  "scripts": {
+    "anvil": "anvil --chain-id 1337",
+    "build": "turbo run build",
+    "build:force": "turbo run build --force",
+    "dev": "turbo run dev",
+    "start": "turbo run start",
+    "clean": "turbo run clean",
+    "clean:node_modules": "rimraf node_modules ./**/node_modules",
+    "test": "turbo run test",
+    "test:force": "turbo run test --force",
+    "test-integration": "turbo run test-integration",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
+    "lint:staged": "turbo run lint:staged",
+    "depcheck": "depcheck && turbo run depcheck",
+    "madge": "turbo run madge",
+    "syncpack": "syncpack list-mismatches",
+    "dotenv:login": "dotenv-vault login",
+    "dotenv:pull": "dotenv-vault pull",
+    "dotenv:push": "dotenv-vault push",
+    "husky:install": "husky install",
+    "publish": "changeset publish",
+    "act:build": "act -W .github/workflows/build.yml --env-file .env",
+    "turbo:login": "turbo login",
+    "turbo:link": "turbo link"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.26.2",
+    "depcheck": "^1.4.7",
+    "dotenv": "^16.4.5",
+    "dotenv-vault": "1.25.0",
+    "husky": "^7.0.4",
+    "rimraf": "^3.0.2",
+    "syncpack": "^12.3.3",
+    "turbo": "^1.10.12"
+  },
+  "engines": {
+    "npm": ">=v10.5.0",
+    "pnpm": ">=9.0.0",
+    "node": "^18.0.0"
+  }
+}
