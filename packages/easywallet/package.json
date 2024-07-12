@@ -39,6 +39,8 @@
     }
   },
   "scripts": {
+    "start": "node lib/esm/index.js",
+    "dev": "tsx watch src/index.ts",
     "build": "npm-run-all -p tsc esbuild",
     "build:watch": "npm-run-all -p tsc:watch esbuild:watch",
     "clean": "rimraf lib dist",
@@ -58,6 +60,7 @@
   },
   "dependencies": {
     "@easywallet/envvars": "workspace:*",
+    "@grammyjs/conversations": "^1.2.0",
     "grammy": "^1.27.0"
   },
   "devDependencies": {
