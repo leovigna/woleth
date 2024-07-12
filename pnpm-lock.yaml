@@ -37,6 +37,9 @@ importers:
 
   packages/easywallet:
     dependencies:
+      '@easywallet/envvars':
+        specifier: workspace:*
+        version: link:../envvars
       grammy:
         specifier: ^1.27.0
         version: 1.27.0

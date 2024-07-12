@@ -1,7 +1,9 @@
 {
-  "name": "@leovigna/starter-typescript",
+  "name": "@easywallet/easywallet",
   "version": "0.0.0",
   "keywords": [
+    "telegram",
+    "web3",
     "typescript",
     "starter"
   ],
@@ -54,6 +56,10 @@
     "tsc:trace": "tsc --generateTrace lib/trace && analyze-trace lib/trace",
     "tsc:watch": "tsc -w"
   },
+  "dependencies": {
+    "@easywallet/envvars": "workspace:*",
+    "grammy": "^1.27.0"
+  },
   "devDependencies": {
     "@owlprotocol/esbuild-config": "*",
     "@owlprotocol/eslint-config": "*",
@@ -77,8 +83,5 @@
   "funding": "https://github.com/leovigna/easywallet",
   "engines": {
     "node": "^18.0.0"
-  },
-  "dependencies": {
-    "grammy": "^1.27.0"
   }
 }
