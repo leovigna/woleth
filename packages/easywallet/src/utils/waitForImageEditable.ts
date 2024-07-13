@@ -1,8 +1,11 @@
 import { InlineKeyboard } from "grammy";
 import { Message } from "grammy/types";
+import { z } from "zod";
 import { waitForImage } from "./waitForImage.js";
 import { waitForText } from "./waitForText.js";
 import { MyConversation, MyContext } from "../context.js";
+
+const confirmUploadZod = z.enum(["/confirm", "/upload"]);
 
 /**
  * Inside wait for user to upload and confirm an image
@@ -66,12 +69,12 @@ export async function waitForImageEditable(
         }
         firstTime = false;
 
-        const confirmation = await waitForText<"/confirm" | "/upload">(conversation, ctx, ["/confirm", "/upload"]);
+        const confirmation = await waitForText(conversation, ctx, confirmUploadZod);
         await ctx.api.editMessageReplyMarkup(ctx.chat!.id, message.message_id, {
             reply_markup: undefined,
         });
 
-        if (confirmation.text === "/confirm") {
+        if (confirmation.data === "/confirm") {
             return {
                 message,
                 fileId,

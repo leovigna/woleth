@@ -4,6 +4,8 @@ import { z } from "zod";
 import { waitForText } from "./waitForText.js";
 import { MyContext, MyConversation } from "../context.js";
 
+const confirmEditZod = z.enum(["/confirm", "/edit"]);
+
 /**
  * Data model, defines name and parameters
  */
@@ -103,7 +105,7 @@ export async function waitForModel<T = Record<string, string>>(
                 .text("Cancel", "/cancel"),
         });
 
-        const confirmation = await waitForText<"/confirm" | "/edit">(conversation, ctx, ["/confirm", "/edit"]);
+        const confirmation = await waitForText(conversation, ctx, confirmEditZod);
         await ctx.api.editMessageReplyMarkup(ctx.chat!.id, message.message_id, {
             reply_markup: undefined,
         });
