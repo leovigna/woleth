@@ -1,32 +1,9 @@
-import {
-    getFirebaseQueryReactQueryOptions,
-    getFirebaseResourceReactQueryOptions,
-    Query,
-} from "@owlprotocol/crud-firebase/query";
-import { itemChildResource, itemResource } from "../web/resources.js";
-import { itemChildGroupPath, itemPath } from "../collections.js";
-import { ItemCompositeId, ItemData, ItemId, encodeItemId } from "../models/Item.js";
-import { itemChildGroupQuery } from "../web/groupQueries.js";
+import { getFirebaseResourceReactQueryOptions } from "@owlprotocol/crud-firebase/query";
+import { telegramUserResource } from "../web/resources.js";
+import { telegramUserPath } from "../collections.js";
 
 /*** Collection Queries ***/
-export const itemQueryOptions = getFirebaseResourceReactQueryOptions(itemResource, {
+export const telegramUserQueryOptions = getFirebaseResourceReactQueryOptions(telegramUserResource, {
     prefixPath: [],
-    collectionGroup: itemPath,
+    collectionGroup: telegramUserPath,
 });
-
-export const itemChildQueryOptions = getFirebaseResourceReactQueryOptions(itemChildResource, (collectionId: ItemId) => {
-    return {
-        prefixPath: [itemPath, encodeItemId(collectionId)],
-        collectionGroup: itemChildGroupPath,
-    };
-});
-
-/** Collection Group Queries */
-export const itemChildGroupQueryOptions = getFirebaseQueryReactQueryOptions<
-    ItemData,
-    ItemCompositeId,
-    Required<ItemId>,
-    ItemData,
-    ItemData,
-    Query<"web", ItemData>
->(itemChildGroupQuery, { prefixPath: [], collectionGroup: itemChildGroupPath });

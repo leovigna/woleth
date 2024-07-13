@@ -59,6 +59,7 @@
     "tsc:watch": "tsc -w"
   },
   "dependencies": {
+    "@easywallet/firebase": "workspace:*",
     "@easywallet/envvars": "workspace:*",
     "@grammyjs/conversations": "^1.2.0",
     "grammy": "^1.27.0"
