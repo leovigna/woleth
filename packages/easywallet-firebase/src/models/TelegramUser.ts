@@ -14,11 +14,11 @@ export const decodeTelegramUserId: (id: string) => Required<TelegramUserId> = (i
 };
 
 export interface TelegramUserData {
-    readonly telegramId: string;
+    readonly telegramId: number;
 }
 export const telegramUserDataZod = z
     .object({
-        telegramId: z.string(),
+        telegramId: z.number(),
     })
     .describe("user");
 export const encodeTelegramUserData: (data: TelegramUserData) => TelegramUserData = telegramUserDataZod.parse;

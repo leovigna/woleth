@@ -1,9 +1,10 @@
 // import { conversations } from "@grammyjs/conversations";
+import { TelegramUser, telegramUserResource } from "@easywallet/firebase/admin";
 import { MyContext, MyConversation } from "../context.js";
-import { waitForAddress } from "../utils/waitForAddress.js";
+// import { waitForAddress } from "../utils/waitForAddress.js";
 // import { getIntroMessage } from "../templates/index.js";
 
-export async function start(_conversation: MyConversation, ctx: MyContext) {
+export async function start(conversation: MyConversation, ctx: MyContext) {
     /*
     const args = ctx.match as string;
 
@@ -23,8 +24,25 @@ export async function start(_conversation: MyConversation, ctx: MyContext) {
 
     await ctx.reply(getIntroMessage(), { parse_mode: "Markdown" });
     */
-    await ctx.reply("Please send address");
-    const result = await waitForAddress(_conversation, ctx);
-    await ctx.reply("Thanks!");
-    console.debug(result);
+    console.debug(await getConversationUser(conversation, ctx));
+    // await ctx.reply("Please send address");
+    // const result = await waitForAddress(_conversation, ctx);
+    // await ctx.reply("Thanks!");
+    // console.debug(result);
+}
+
+export async function getConversationUser(
+    conversation: MyConversation,
+    ctx: MyContext,
+): Promise<{ user: TelegramUser }> {
+    const telegramId = ctx.from?.id;
+    if (!telegramId) throw new Error("ctx.from.id undefined!");
+
+    //Update user
+    const user: TelegramUser = { userId: `${telegramId}`, telegramId };
+    await conversation.external(() => telegramUserResource.upsert(user));
+
+    console.debug(user);
+
+    return { user };
 }
