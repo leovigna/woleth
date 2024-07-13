@@ -80,7 +80,8 @@
     "typescript": "5.4.5",
     "viem": "2.9.20",
     "vite": "^5.1.6",
-    "vitest": "^1.4.0"
+    "vitest": "^1.4.0",
+    "zod": "3.21.4"
   },
   "bugs": {
     "url": "https://github.com/leovigna/easywallet/issues",

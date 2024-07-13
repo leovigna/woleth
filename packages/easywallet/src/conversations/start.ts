@@ -1,7 +1,10 @@
+// import { conversations } from "@grammyjs/conversations";
 import { MyContext, MyConversation } from "../context.js";
-import { getIntroMessage } from "../templates/index.js";
+import { waitForAddress } from "../utils/waitForAddress.js";
+// import { getIntroMessage } from "../templates/index.js";
 
 export async function start(_conversation: MyConversation, ctx: MyContext) {
+    /*
     const args = ctx.match as string;
 
     if (args) {
@@ -19,4 +22,9 @@ export async function start(_conversation: MyConversation, ctx: MyContext) {
     }
 
     await ctx.reply(getIntroMessage(), { parse_mode: "Markdown" });
+    */
+    await ctx.reply("Please send address");
+    const result = await waitForAddress(_conversation, ctx);
+    await ctx.reply("Thanks!");
+    console.debug(result);
 }

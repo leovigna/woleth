@@ -1,5 +1,6 @@
 import { Message } from "grammy/types";
 import { InlineKeyboard } from "grammy";
+import { z } from "zod";
 import { waitForText } from "./waitForText.js";
 import { MyContext, MyConversation } from "../context.js";
 
@@ -66,7 +67,11 @@ export async function waitForModel<T = Record<string, string>>(
             //@ts-expect-error
             if (!draft[key] || !firstTime) {
                 const questionInputMsg = await ctx.reply(param.prompt ?? `${model.name} ${param.name}?`);
-                const { message: responseInputMsg, text: responseInput } = await waitForText(conversation, ctx);
+                const { message: responseInputMsg, text: responseInput } = await waitForText(
+                    conversation,
+                    ctx,
+                    z.string(),
+                );
                 if (responseInput === "/cancel") {
                     await Promise.all([
                         ctx.api.deleteMessage(ctx.chat!.id, message.message_id),
