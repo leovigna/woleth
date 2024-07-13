@@ -1,7 +1,7 @@
 // import { conversations } from "@grammyjs/conversations";
 import { TelegramUser, telegramUserResource } from "@easywallet/firebase/admin";
 import { createClient } from "@owlprotocol/core-trpc/client";
-import { createUserLocalAccount } from "@owlprotocol/core-provider";
+import { createUserCustodialLocalAccount } from "@owlprotocol/core-provider";
 import { OWL_API_SECRET } from "@easywallet/envvars";
 import { MyContext, MyConversation } from "../context.js";
 // import { waitForAddress } from "../utils/waitForAddress.js";
@@ -37,18 +37,34 @@ export async function start(conversation: MyConversation, ctx: MyContext) {
     // Create user with TRPC
     //TODO: Global?
     if (!OWL_API_SECRET) throw new Error("OWL_API_SECRET undefined");
+    const apiKey = OWL_API_SECRET;
+    const restUrl = "http://localhost:3000/api";
+    const trpcUrl = "http://localhost:3000/api/trpc";
+
     const client = createClient(
         {
-            apiKey: OWL_API_SECRET,
+            apiKey,
         },
-        "http://localhost:3000/api/trpc",
+        trpcUrl,
     );
 
-    const userOwl = await await conversation.external(() =>
-        client.projectUser.createOrSet.mutate({ email: `${user.telegramId}@telegram.com` }),
+    const userOwl = await conversation.external(() =>
+        client.admin.user.custodial.create.mutate({ externalId: `${user.telegramId}` }),
     );
 
-    console.debug({ user, userOwl });
+    const userOwlWallets = await conversation.external(() =>
+        client.admin.user.custodial.wallets.query({ userId: userOwl.userId }),
+    );
+
+    const userAccount = await conversation.external(() =>
+        createUserCustodialLocalAccount({
+            apiKey,
+            userId: userOwl.userId,
+            owlApiRestBaseUrl: restUrl,
+        }),
+    );
+
+    console.debug({ user, userOwl, userOwlWallets: userOwlWallets.wallets, account: userAccount.address });
 
     //TODO: Create provider with core-provider
 
@@ -69,8 +85,6 @@ export async function getConversationUser(
     //Update user
     const user: TelegramUser = { userId: `${telegramId}`, telegramId };
     await conversation.external(() => telegramUserResource.upsert(user));
-
-    console.debug(user);
 
     return { user };
 }
