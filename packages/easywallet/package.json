@@ -59,6 +59,8 @@
     "tsc:watch": "tsc -w"
   },
   "dependencies": {
+    "@owlprotocol/core-trpc": "*",
+    "@owlprotocol/core-provider": "*",
     "@easywallet/firebase": "workspace:*",
     "@easywallet/envvars": "workspace:*",
     "@grammyjs/conversations": "^1.2.0",

@@ -15,7 +15,7 @@ export interface EnvVarDef {
     readonly platform: "browser" | "node" | "neutral";
 }
 
-//Firebase config (admin & web sdks)
+// Firebase config (admin & web sdks)
 const FIREBASE_ENVVARS: EnvVarDef[] = [
     { name: "FIREBASE_MOCK", platform: "neutral", defaultValue: "true", enumValues: ["true", "false"] },
     { name: "FIREBASE_API_KEY", platform: "neutral" },
@@ -36,11 +36,15 @@ const FIREBASE_ENVVARS: EnvVarDef[] = [
     },
 ];
 
+// Telegram
 const TELEGRAM_BOT_ENVVARS: EnvVarDef[] = [
     { name: "TELEGRAM_BOT_TOKEN", platform: "node" },
     { name: "TELEGRAM_BOT_HANDLE", platform: "node", defaultValue: "@easywallet" },
     { name: "TELEGRAM_BOT_NAME", platform: "node", defaultValue: "Easy Wallet" },
 ];
+
+// Owl Protocol
+const OWL_ENVVARS: EnvVarDef[] = [{ name: "OWL_API_SECRET", platform: "node" }];
 
 export const ENVVARS: EnvVarDef[] = [
     {
@@ -51,6 +55,7 @@ export const ENVVARS: EnvVarDef[] = [
     },
     ...FIREBASE_ENVVARS,
     ...TELEGRAM_BOT_ENVVARS,
+    ...OWL_ENVVARS,
 ];
 
 const NODE_ENV_VAR = {

@@ -1,8 +1,14 @@
 // import { conversations } from "@grammyjs/conversations";
 import { TelegramUser, telegramUserResource } from "@easywallet/firebase/admin";
+import { createClient } from "@owlprotocol/core-trpc/client";
+import { createUserLocalAccount } from "@owlprotocol/core-provider";
+import { OWL_API_SECRET } from "@easywallet/envvars";
 import { MyContext, MyConversation } from "../context.js";
 // import { waitForAddress } from "../utils/waitForAddress.js";
 // import { getIntroMessage } from "../templates/index.js";
+
+//TODO: Remove .env file
+//TODO: Core-provider helper methods
 
 export async function start(conversation: MyConversation, ctx: MyContext) {
     /*
@@ -24,7 +30,29 @@ export async function start(conversation: MyConversation, ctx: MyContext) {
 
     await ctx.reply(getIntroMessage(), { parse_mode: "Markdown" });
     */
-    console.debug(await getConversationUser(conversation, ctx));
+
+    //TODO: Optimize caching?
+    const { user } = await getConversationUser(conversation, ctx);
+
+    // Create user with TRPC
+    //TODO: Global?
+    if (!OWL_API_SECRET) throw new Error("OWL_API_SECRET undefined");
+    const client = createClient(
+        {
+            apiKey: OWL_API_SECRET,
+        },
+        "http://localhost:3000/api/trpc",
+    );
+
+    const userOwl = await await conversation.external(() =>
+        client.projectUser.createOrSet.mutate({ email: `${user.telegramId}@telegram.com` }),
+    );
+
+    console.debug({ user, userOwl });
+
+    //TODO: Create provider with core-provider
+
+    // Address demo
     // await ctx.reply("Please send address");
     // const result = await waitForAddress(_conversation, ctx);
     // await ctx.reply("Thanks!");

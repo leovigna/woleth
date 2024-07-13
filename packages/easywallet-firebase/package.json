@@ -64,7 +64,7 @@
     "depcheck": "depcheck",
     "esbuild": "node esbuild.config.mjs",
     "esbuild:watch": "ESBUILD_WATCH=true node esbuild.config.mjs",
-    "firebase-emulator": "firebase emulators:start --only firestore,storage,auth --project demo-easywallet",
+    "firebase-emulator": "firebase emulators:start --only firestore,storage,auth --project demo-easywallet,demo-owl-protocol",
     "lint": "eslint 'src/**/*.ts'",
     "lint:fix": "eslint --fix 'src/**/*.ts'",
     "lint:staged": "lint-staged",
