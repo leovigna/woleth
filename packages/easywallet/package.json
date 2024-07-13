@@ -61,6 +61,7 @@
   "dependencies": {
     "@owlprotocol/core-trpc": "*",
     "@owlprotocol/core-provider": "*",
+    "@owlprotocol/contracts-account-abstraction": "*",
     "@easywallet/firebase": "workspace:*",
     "@easywallet/envvars": "workspace:*",
     "@grammyjs/conversations": "^1.2.0",

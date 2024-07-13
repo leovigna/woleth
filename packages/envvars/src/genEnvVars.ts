@@ -46,6 +46,15 @@ const TELEGRAM_BOT_ENVVARS: EnvVarDef[] = [
 // Owl Protocol
 const OWL_ENVVARS: EnvVarDef[] = [{ name: "OWL_API_SECRET", platform: "node" }];
 
+const NAMESTONE_ENVVARS: EnvVarDef[] = [
+    { name: "NAMESTONE_API_URL", platform: "node", defaultValue: "https://namestone.xyz/api/public_v1" },
+    {
+        name: "NAMESTONE_API_KEY",
+        platform: "node",
+    },
+    { name: "NAMESTONE_DOMAIN", platform: "node", defaultValue: "woleth.eth" },
+];
+
 export const ENVVARS: EnvVarDef[] = [
     {
         name: "LOG_LEVEL",
@@ -56,6 +65,7 @@ export const ENVVARS: EnvVarDef[] = [
     ...FIREBASE_ENVVARS,
     ...TELEGRAM_BOT_ENVVARS,
     ...OWL_ENVVARS,
+    ...NAMESTONE_ENVVARS,
 ];
 
 const NODE_ENV_VAR = {

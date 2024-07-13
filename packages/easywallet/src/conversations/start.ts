@@ -8,12 +8,13 @@ import {
     createOwlPaymasterClient,
     getBundlerUrl,
 } from "@owlprotocol/core-provider";
-import { OWL_API_SECRET } from "@easywallet/envvars";
+import { OWL_API_SECRET, NAMESTONE_API_URL, NAMESTONE_DOMAIN, NAMESTONE_API_KEY } from "@easywallet/envvars";
 import { createSmartAccountClient } from "permissionless";
 import { signerToSimpleSmartAccount } from "permissionless/accounts";
 import { ENTRYPOINT_ADDRESS_V07 } from "permissionless/utils";
 import { http } from "viem";
 import { localhost } from "viem/chains";
+import { getSimpleAccountAddress } from "@owlprotocol/contracts-account-abstraction";
 import { MyContext, MyConversation } from "../context.js";
 // import { waitForAddress } from "../utils/waitForAddress.js";
 // import { getIntroMessage } from "../templates/index.js";
@@ -22,6 +23,65 @@ import { MyContext, MyConversation } from "../context.js";
 //TODO: Core-provider helper methods
 
 export async function start(conversation: MyConversation, ctx: MyContext) {
+    //TODO: Locales
+    // console.debug({ locale: ctx.from?.language_code });
+    const { user } = await getConversationUser(conversation, ctx);
+
+    // Create user with TRPC
+    //TODO: Global?
+    if (!OWL_API_SECRET) throw new Error("OWL_API_SECRET undefined");
+    const apiKey = OWL_API_SECRET;
+    const baseUrl = "http://localhost:3000/api";
+    const trpcUrl = "http://localhost:3000/api/trpc";
+
+    const client = createClient(
+        {
+            apiKey,
+        },
+        trpcUrl,
+    );
+
+    const userOwl = await conversation.external(() =>
+        client.admin.user.custodial.create.mutate({ externalId: `${user.telegramId}` }),
+    );
+
+    const account = await conversation.external(() =>
+        createUserCustodialLocalAccount({
+            apiKey,
+            userId: userOwl.userId,
+            owlApiRestBaseUrl: baseUrl,
+        }),
+    );
+
+    const smartAccountAddress = getSimpleAccountAddress({ owner: account.address });
+    if (!NAMESTONE_API_KEY) throw new Error("NAMESTONE_API_KEY undefined");
+
+    const nameStoneApiKey = NAMESTONE_API_KEY;
+    const nameStoneDomain = NAMESTONE_DOMAIN;
+    // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+    const tgHandle = ctx.from?.username!;
+    const name = tgHandle.replaceAll("_", "-").toLowerCase();
+
+    const nameStoneResult = await conversation.external(() =>
+        fetch(`${NAMESTONE_API_URL}/set-name`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: nameStoneApiKey,
+            },
+            body: JSON.stringify({
+                domain: nameStoneDomain,
+                name,
+                address: smartAccountAddress,
+            }),
+        }),
+    );
+    const nameStoneResultJson: { success: boolean } = await nameStoneResult.json();
+
+    console.debug({ name, nameStoneResultJson });
+}
+
+export async function start2(conversation: MyConversation, ctx: MyContext) {
     /*
     const args = ctx.match as string;
 
@@ -61,10 +121,6 @@ export async function start(conversation: MyConversation, ctx: MyContext) {
 
     const userOwl = await conversation.external(() =>
         client.admin.user.custodial.create.mutate({ externalId: `${user.telegramId}` }),
-    );
-
-    const userOwlWallets = await conversation.external(() =>
-        client.admin.user.custodial.wallets.query({ userId: userOwl.userId }),
     );
 
     const account = await conversation.external(() =>
