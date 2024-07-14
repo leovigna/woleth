@@ -60,7 +60,7 @@
   },
   "dependencies": {
     "@owlprotocol/core-trpc": "*",
-    "@owlprotocol/core-provider": "*",
+    "@owlprotocol/clients": "*",
     "@owlprotocol/contracts-account-abstraction": "*",
     "@easywallet/firebase": "workspace:*",
     "@easywallet/envvars": "workspace:*",

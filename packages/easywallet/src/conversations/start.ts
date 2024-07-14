@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // import { conversations } from "@grammyjs/conversations";
 import { TelegramUser, telegramUserResource } from "@easywallet/firebase/admin";
 import { createClient } from "@owlprotocol/core-trpc/client";
-import { createUserCustodialLocalAccount, createOwlClients, getBundlerUrl } from "@owlprotocol/core-provider";
+import { createUserCustodialAccount, createOwlClients, getBundlerUrl } from "@owlprotocol/clients";
 import {
     OWL_API_SECRET,
     NAMESTONE_API_URL,
@@ -22,11 +23,11 @@ import { MyContext, MyConversation } from "../context.js";
 //TODO: Remove .env file
 //TODO: Core-provider helper methods
 
-export async function start(conversation: MyConversation, ctx: MyContext) {
+export async function start(_conversation: MyConversation, _ctx: MyContext) {
     console.debug("test");
 }
 
-export async function start4(conversation: MyConversation, ctx: MyContext) {
+export async function start4(_conversation: MyConversation, ctx: MyContext) {
     if (!STRIPE_TOKEN) throw new Error("STRIPE_TOKEN undefined");
 
     //4242 4242 4242 4242
@@ -74,7 +75,7 @@ export async function start3(conversation: MyConversation, ctx: MyContext) {
     );
 
     const account = await conversation.external(() =>
-        createUserCustodialLocalAccount({
+        createUserCustodialAccount({
             apiKey,
             userId: userOwl.userId,
             owlApiRestBaseUrl: baseUrl,
@@ -152,7 +153,7 @@ export async function start2(conversation: MyConversation, ctx: MyContext) {
     );
 
     const account = await conversation.external(() =>
-        createUserCustodialLocalAccount({
+        createUserCustodialAccount({
             apiKey,
             userId: userOwl.userId,
             owlApiRestBaseUrl: baseUrl,
