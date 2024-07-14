@@ -91,6 +91,17 @@ export const ENS_CLAIM = {
 
 /***** Circles UBI Management *****/
 //TODO: Mint Circles
+export const CIRCLES_SIGNUP = {
+    command: "circle_signup",
+    description: "Signup for Circles",
+    menu: true,
+} as const satisfies Command;
+
+export const CIRCLES_MINT = {
+    command: "circle_mint",
+    description: "Mint Circles",
+    menu: true,
+} as const satisfies Command;
 
 export const ACTIVE_COMMANDS: Array<Command> = [
     START,
@@ -101,4 +112,6 @@ export const ACTIVE_COMMANDS: Array<Command> = [
     WALLET_DUMMY,
     ENS,
     ENS_CLAIM,
+    CIRCLES_SIGNUP,
+    CIRCLES_MINT,
 ];
