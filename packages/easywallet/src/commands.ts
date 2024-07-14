@@ -1,5 +1,6 @@
 /***** Commands *****/
 
+import { circlesSignup } from "./conversations/circles/index.js";
 import { ens, ensClaimCommand, intro, start, wallet, walletCollectibles, walletTokens } from "./conversations/index.js";
 import { walletDummyCommand } from "./conversations/wallet/walletDummyTx.js";
 
@@ -86,6 +87,7 @@ export const CIRCLES_SIGNUP = {
     command: "circle_signup",
     description: "Signup for Circles",
     menu: true,
+    conversation: circlesSignup,
 } as const satisfies Command;
 
 export const CIRCLES_MINT = {
@@ -97,12 +99,12 @@ export const CIRCLES_MINT = {
 export const ACTIVE_COMMANDS: Array<Command> = [
     START,
     INTRO,
-    WALLET,
-    WALLET_TOKENS,
-    WALLET_COLLECTIBLES,
-    WALLET_DUMMY,
+    // WALLET,
+    // WALLET_TOKENS,
+    // WALLET_COLLECTIBLES,
+    // WALLET_DUMMY,
     ENS,
     ENS_CLAIM,
     CIRCLES_SIGNUP,
-    CIRCLES_MINT,
+    // CIRCLES_MINT,
 ];
