@@ -1,13 +1,7 @@
 // import { conversations } from "@grammyjs/conversations";
 import { TelegramUser, telegramUserResource } from "@easywallet/firebase/admin";
 import { createClient } from "@owlprotocol/core-trpc/client";
-import {
-    createUserCustodialLocalAccount,
-    createOwlPublicClient,
-    createOwlBundlerClient,
-    createOwlPaymasterClient,
-    getBundlerUrl,
-} from "@owlprotocol/core-provider";
+import { createUserCustodialLocalAccount, createOwlClients, getBundlerUrl } from "@owlprotocol/core-provider";
 import {
     OWL_API_SECRET,
     NAMESTONE_API_URL,
@@ -167,9 +161,7 @@ export async function start2(conversation: MyConversation, ctx: MyContext) {
 
     const chain = localhost;
     const chainId = 1337;
-    const publicClient = createOwlPublicClient({ chainId, baseUrl });
-    const bundlerClient = createOwlBundlerClient({ chainId, baseUrl });
-    const paymasterClient = createOwlPaymasterClient({ chainId, baseUrl });
+    const { publicClient, bundlerClient, paymasterClient } = createOwlClients({ chainId, baseUrl });
 
     const smartAccount = await conversation.external(() =>
         signerToSimpleSmartAccount(publicClient, {
