@@ -20,13 +20,13 @@ const FIREBASE_ENVVARS: EnvVarDef[] = [
     { name: "FIREBASE_MOCK", platform: "neutral", defaultValue: "true", enumValues: ["true", "false"] },
     { name: "FIREBASE_API_KEY", platform: "neutral" },
     { name: "FIREBASE_AUTH_DOMAIN", platform: "neutral" },
-    { name: "FIREBASE_PROJECT_ID", platform: "neutral", defaultValue: "easywallet" },
-    { name: "FIREBASE_APP_ID", platform: "neutral", defaultValue: "easywallet" },
+    { name: "FIREBASE_PROJECT_ID", platform: "neutral", defaultValue: "woleth" },
+    { name: "FIREBASE_APP_ID", platform: "neutral", defaultValue: "woleth" },
     { name: "FIREBASE_MEASUREMENT_ID", platform: "neutral" },
     { name: "FIREBASE_SERVICE_EMAIL", platform: "node" },
     { name: "FIREBASE_PRIVATE_KEY", platform: "node" },
     { name: "FIREBASE_DATABASE_URL", platform: "neutral" },
-    { name: "FIREBASE_STORAGE_BUCKET", platform: "neutral", defaultValue: "easywallet" },
+    { name: "FIREBASE_STORAGE_BUCKET", platform: "neutral", defaultValue: "woleth" },
     { name: "FIREBASE_LOCAL_CACHE_SIZE", platform: "neutral", defaultValue: "-1" },
     {
         name: "FIREBASE_LOCAL_CACHE_MANAGER",
@@ -39,7 +39,7 @@ const FIREBASE_ENVVARS: EnvVarDef[] = [
 // Telegram
 const TELEGRAM_BOT_ENVVARS: EnvVarDef[] = [
     { name: "TELEGRAM_BOT_TOKEN", platform: "node" },
-    { name: "TELEGRAM_BOT_HANDLE", platform: "node", defaultValue: "@easywallet" },
+    { name: "TELEGRAM_BOT_HANDLE", platform: "node", defaultValue: "@woleth" },
     { name: "TELEGRAM_BOT_NAME", platform: "node", defaultValue: "Easy Wallet" },
     { name: "STRIPE_TOKEN", platform: "node" },
 ];
