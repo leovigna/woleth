@@ -41,6 +41,7 @@ const TELEGRAM_BOT_ENVVARS: EnvVarDef[] = [
     { name: "TELEGRAM_BOT_TOKEN", platform: "node" },
     { name: "TELEGRAM_BOT_HANDLE", platform: "node", defaultValue: "@easywallet" },
     { name: "TELEGRAM_BOT_NAME", platform: "node", defaultValue: "Easy Wallet" },
+    { name: "STRIPE_TOKEN", platform: "node" },
 ];
 
 // Owl Protocol

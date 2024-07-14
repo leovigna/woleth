@@ -8,7 +8,13 @@ import {
     createOwlPaymasterClient,
     getBundlerUrl,
 } from "@owlprotocol/core-provider";
-import { OWL_API_SECRET, NAMESTONE_API_URL, NAMESTONE_DOMAIN, NAMESTONE_API_KEY } from "@easywallet/envvars";
+import {
+    OWL_API_SECRET,
+    NAMESTONE_API_URL,
+    NAMESTONE_DOMAIN,
+    NAMESTONE_API_KEY,
+    STRIPE_TOKEN,
+} from "@easywallet/envvars";
 import { createSmartAccountClient } from "permissionless";
 import { signerToSimpleSmartAccount } from "permissionless/accounts";
 import { ENTRYPOINT_ADDRESS_V07 } from "permissionless/utils";
@@ -23,6 +29,34 @@ import { MyContext, MyConversation } from "../context.js";
 //TODO: Core-provider helper methods
 
 export async function start(conversation: MyConversation, ctx: MyContext) {
+    console.debug("test");
+}
+
+export async function start4(conversation: MyConversation, ctx: MyContext) {
+    if (!STRIPE_TOKEN) throw new Error("STRIPE_TOKEN undefined");
+
+    //4242 4242 4242 4242
+    //01/25
+    //111
+    //John Doe
+    //Country (Any)
+    //0000
+
+    const result = await ctx.replyWithInvoice(
+        "Pay 1$",
+        "Please pay",
+        "0x1",
+        "USD",
+        [{ label: "1 USDC", amount: 100 }],
+        {
+            provider_token: STRIPE_TOKEN,
+        },
+    );
+
+    console.debug({ result });
+}
+
+export async function start3(conversation: MyConversation, ctx: MyContext) {
     //TODO: Locales
     // console.debug({ locale: ctx.from?.language_code });
     const { user } = await getConversationUser(conversation, ctx);

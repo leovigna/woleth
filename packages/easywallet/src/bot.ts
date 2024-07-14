@@ -27,6 +27,27 @@ bot.use(
     }),
 );
 
+//Middleware
+/**
+ * General middleware on all messages, not applicable to conversations but it can still trigger within a conversation if a user clicks a previous button.
+ * Updates context and chatHistory
+ * @param ctx
+ * @param next
+ */
+
+/*
+export async function onMessageMiddleware(
+    ctx: MyContext,
+    //@ts-expect-error
+    next: NextFunction, // is an alias for: () => Promise<void>
+): Promise<void> {
+    console.debug(ctx.update);
+    await next();
+}
+
+bot.use(onMessageMiddleware);
+*/
+
 //Conversations
 bot.use(conversations());
 //Create conversations associated with commands
