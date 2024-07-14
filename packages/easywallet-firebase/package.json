@@ -1,11 +1,9 @@
 {
-  "name": "@easywallet/easywallet",
+  "name": "@easywallet/firebase",
   "version": "0.0.0",
   "keywords": [
-    "telegram",
-    "web3",
-    "typescript",
-    "starter"
+    "firebase",
+    "react-query"
   ],
   "private": true,
   "type": "module",
@@ -36,37 +34,53 @@
       "types": "./lib/types/index.d.ts",
       "require": "./lib/cjs/index.js",
       "import": "./lib/esm/index.js"
+    },
+    "./models": {
+      "types": "./lib/types/models/index.d.ts",
+      "require": "./lib/cjs/models/index.js",
+      "import": "./lib/esm/models/index.js"
+    },
+    "./admin": {
+      "types": "./lib/types/admin/index.d.ts",
+      "require": "./lib/cjs/admin/index.js",
+      "import": "./lib/esm/admin/index.js"
+    },
+    "./web": {
+      "types": "./lib/types/web/index.d.ts",
+      "require": "./lib/cjs/web/index.js",
+      "import": "./lib/esm/web/index.js"
+    },
+    "./query": {
+      "types": "./lib/types/query/index.d.ts",
+      "require": "./lib/cjs/query/index.js",
+      "import": "./lib/esm/query/index.js"
     }
   },
   "scripts": {
-    "start": "node lib/esm/index.js",
-    "dev": "tsx watch src/index.ts",
+    "dev": "npm-run-all -p firebase-emulator",
     "build": "npm-run-all -p tsc esbuild",
     "build:watch": "npm-run-all -p tsc:watch esbuild:watch",
     "clean": "rimraf lib dist",
     "depcheck": "depcheck",
     "esbuild": "node esbuild.config.mjs",
     "esbuild:watch": "ESBUILD_WATCH=true node esbuild.config.mjs",
+    "firebase-emulator": "firebase emulators:start --only firestore,storage,auth --project demo-easywallet",
     "lint": "eslint 'src/**/*.ts'",
     "lint:fix": "eslint --fix 'src/**/*.ts'",
     "lint:staged": "lint-staged",
     "madge": "madge src/index.ts -c",
-    "test": "pnpm run test:ci",
+    "test": "npm run test:ci",
     "test:ci": "vitest --run",
-    "test:watch": "vitest",
+    "test:firebase": "firebase emulators:exec --only firestore,storage,auth --project demo-easywallet 'pnpm run test:ci'",
+    "test:watch": "firebase emulators:exec --only firestore,storage,auth --project demo-easywallet 'vitest'",
     "tsc": "tsc",
     "tsc:trace": "tsc --generateTrace lib/trace && analyze-trace lib/trace",
     "tsc:watch": "tsc -w"
   },
   "dependencies": {
-    "@owlprotocol/core-trpc": "*",
-    "@owlprotocol/clients": "*",
-    "@owlprotocol/contracts-account-abstraction": "*",
-    "@owlprotocol/eth-firebase": "*",
-    "@easywallet/firebase": "workspace:*",
-    "@easywallet/envvars": "workspace:*",
-    "@grammyjs/conversations": "^1.2.0",
-    "grammy": "^1.27.0"
+    "@owlprotocol/crud-firebase": "*",
+    "uuid": "^9.0.1",
+    "zod": "3.21.4"
   },
   "devDependencies": {
     "@owlprotocol/esbuild-config": "*",
@@ -74,19 +88,18 @@
     "@owlprotocol/prettier-config": "*",
     "@owlprotocol/tsconfig": "*",
     "@types/node": "^20.11.10",
+    "@types/uuid": "^9.0.8",
     "@typescript/analyze-trace": "^0.10.1",
-    "depcheck": "^1.4.7",
+    "firebase-tools": "^12.5.2",
     "lint-staged": "^11.2.6",
     "madge": "^5.0.2",
     "npm-run-all": "^4.1.5",
-    "permissionless": "^0.1.19",
     "rimraf": "^3.0.2",
-    "tsx": "^4.11.0",
+    "ts-expect": "^1.3.0",
     "typescript": "5.4.5",
-    "viem": "2.9.20",
     "vite": "^5.1.6",
     "vitest": "^1.4.0",
-    "zod": "3.21.4"
+    "depcheck": "^1.4.7"
   },
   "bugs": {
     "url": "https://github.com/leovigna/easywallet/issues",
