@@ -1,6 +1,15 @@
 /***** Commands *****/
 
-import { ens, ensClaim, intro, start, wallet, walletCollectibles, walletTokens } from "./conversations/index.js";
+import {
+    ens,
+    ensClaim,
+    ensClaimCommand,
+    intro,
+    start,
+    wallet,
+    walletCollectibles,
+    walletTokens,
+} from "./conversations/index.js";
 
 /** Describes the parameter of a command */
 export interface CommandParam {
@@ -70,7 +79,7 @@ export const ENS_CLAIM = {
     command: "ens_claim",
     description: "Claim ENS Domain",
     menu: false,
-    conversation: ensClaim,
+    conversation: ensClaimCommand,
 } as const satisfies Command;
 
 /***** Circles UBI Management *****/

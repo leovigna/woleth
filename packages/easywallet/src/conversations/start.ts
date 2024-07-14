@@ -21,6 +21,5 @@ export async function start(_conversation: MyConversation, ctx: MyContext) {
     }*/
 
     const locale = ctx.from?.language_code;
-    console.debug({ locale });
     await ctx.reply(getIntroMessage(locale), { parse_mode: "Markdown" });
 }
