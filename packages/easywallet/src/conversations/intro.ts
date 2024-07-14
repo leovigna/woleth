@@ -7,5 +7,6 @@ import { getIntroMessage } from "../templates/getIntroMessage.js";
  * @param ctx
  */
 export async function intro(_conversation: MyConversation, ctx: MyContext) {
-    await ctx.reply(getIntroMessage(), { parse_mode: "Markdown" });
+    const locale = ctx.from?.language_code;
+    await ctx.reply(getIntroMessage(locale), { parse_mode: "Markdown" });
 }

@@ -1,15 +1,6 @@
 /***** Commands *****/
 
-import {
-    ens,
-    ensClaim,
-    ensClaimCommand,
-    intro,
-    start,
-    wallet,
-    walletCollectibles,
-    walletTokens,
-} from "./conversations/index.js";
+import { ens, ensClaimCommand, intro, start, wallet, walletCollectibles, walletTokens } from "./conversations/index.js";
 import { walletDummyCommand } from "./conversations/wallet/walletDummyTx.js";
 
 /** Describes the parameter of a command */
