@@ -56,6 +56,13 @@ const NAMESTONE_ENVVARS: EnvVarDef[] = [
     { name: "NAMESTONE_DOMAIN", platform: "node", defaultValue: "woleth.eth" },
 ];
 
+const PIMLICO_ENVVARS: EnvVarDef[] = [
+    {
+        name: "PIMLICO_API_KEY",
+        platform: "node",
+    },
+];
+
 export const ENVVARS: EnvVarDef[] = [
     {
         name: "LOG_LEVEL",
@@ -67,6 +74,7 @@ export const ENVVARS: EnvVarDef[] = [
     ...TELEGRAM_BOT_ENVVARS,
     ...OWL_ENVVARS,
     ...NAMESTONE_ENVVARS,
+    ...PIMLICO_ENVVARS,
 ];
 
 const NODE_ENV_VAR = {

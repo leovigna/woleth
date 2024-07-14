@@ -62,6 +62,7 @@
     "@owlprotocol/core-trpc": "*",
     "@owlprotocol/clients": "*",
     "@owlprotocol/contracts-account-abstraction": "*",
+    "@owlprotocol/eth-firebase": "*",
     "@easywallet/firebase": "workspace:*",
     "@easywallet/envvars": "workspace:*",
     "@grammyjs/conversations": "^1.2.0",

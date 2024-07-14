@@ -10,6 +10,7 @@ import {
     walletCollectibles,
     walletTokens,
 } from "./conversations/index.js";
+import { walletDummyCommand } from "./conversations/wallet/walletDummyTx.js";
 
 /** Describes the parameter of a command */
 export interface CommandParam {
@@ -66,6 +67,12 @@ export const WALLET_COLLECTIBLES = {
     menu: false,
     conversation: walletCollectibles,
 } as const satisfies Command;
+export const WALLET_DUMMY = {
+    command: "wallet_dummy",
+    description: "Sample AA Transaction",
+    menu: false,
+    conversation: walletDummyCommand,
+} as const satisfies Command;
 
 /***** ENS Management *****/
 export const ENS = {
@@ -91,6 +98,7 @@ export const ACTIVE_COMMANDS: Array<Command> = [
     WALLET,
     WALLET_TOKENS,
     WALLET_COLLECTIBLES,
+    WALLET_DUMMY,
     ENS,
     ENS_CLAIM,
 ];
