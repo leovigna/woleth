@@ -1,6 +1,6 @@
 /***** Commands *****/
 
-import { intro, start, wallet, walletCollectibles, walletTokens } from "./conversations/index.js";
+import { ens, ensClaim, intro, start, wallet, walletCollectibles, walletTokens } from "./conversations/index.js";
 
 /** Describes the parameter of a command */
 export interface CommandParam {
@@ -58,4 +58,30 @@ export const WALLET_COLLECTIBLES = {
     conversation: walletCollectibles,
 } as const satisfies Command;
 
-export const ACTIVE_COMMANDS: Array<Command> = [START, INTRO, WALLET, WALLET_TOKENS, WALLET_COLLECTIBLES];
+/***** ENS Management *****/
+export const ENS = {
+    command: "ens",
+    description: "Ethereum Naming Service",
+    menu: true,
+    conversation: ens,
+} as const satisfies Command;
+
+export const ENS_CLAIM = {
+    command: "ens_claim",
+    description: "Claim ENS Domain",
+    menu: false,
+    conversation: ensClaim,
+} as const satisfies Command;
+
+/***** Circles UBI Management *****/
+//TODO: Mint Circles
+
+export const ACTIVE_COMMANDS: Array<Command> = [
+    START,
+    INTRO,
+    WALLET,
+    WALLET_TOKENS,
+    WALLET_COLLECTIBLES,
+    ENS,
+    ENS_CLAIM,
+];
